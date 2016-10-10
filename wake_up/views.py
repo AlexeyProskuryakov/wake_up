@@ -4,13 +4,12 @@ from flask import request, Blueprint, render_template
 from flask.json import jsonify
 
 
-from wake_up.engine import WakeUp
-
-wake_up_app = Blueprint('wake_up_api', __name__)
+from wsgi.wake_up.engine import WakeUp
 
 wu = WakeUp()
 wu.start()
 
+wake_up_app = Blueprint('wake_up_api', __name__, template_folder="templates")
 
 log = logging
 
@@ -42,8 +41,3 @@ def wake_up_manage():
 
     urls = wu.store.get_urls()
     return render_template("wake_up.html", **{"urls": urls})
-
-
-if __name__ == '__main__':
-    wu = WakeUp()
-    wu.start()
