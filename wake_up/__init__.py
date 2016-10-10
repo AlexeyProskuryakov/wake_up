@@ -30,7 +30,7 @@ class ConfigManager(object):
     def __init__(self):
         config_file = os.environ.get("config-file", None)
         if not config_file:
-            config_file = "%s/wake_up.json" % module_path()
+            config_file = "%s/config.json" % module_path()
         try:
             f = open(config_file, )
         except Exception as e:
