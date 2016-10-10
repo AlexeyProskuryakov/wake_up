@@ -7,15 +7,7 @@ import sys
 S_BAD = "BAD"
 S_OK = "OK"
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s[%(levelname)s]%(name)s|%(processName)s(%(process)d): %(message)s')
-formatter_process = logging.Formatter('%(asctime)s[%(levelname)s]%(name)s|%(processName)s: %(message)s')
-formatter_human = logging.Formatter('%(asctime)s[%(levelname)s]%(name)s|%(processName)s: %(message)s')
-
-sh = logging.StreamHandler()
-sh.setFormatter(formatter)
-logger.addHandler(sh)
+log = logging.getLogger("wake_up_main")
 
 
 def module_path():
@@ -34,7 +26,7 @@ class ConfigManager(object):
         try:
             f = open(config_file, )
         except Exception as e:
-            logger.exception(e)
+            log.exception(e)
             sys.exit(-1)
 
         self.config_data = json.load(f)
