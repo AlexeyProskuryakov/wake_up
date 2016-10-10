@@ -2,13 +2,17 @@ import logging
 
 from pymongo import MongoClient
 
+from wake_up import ConfigManager
+
 log = logging.getLogger("wake_up_storage")
 
-mongo_uri = "mongodb://3030:sederfes100500@ds055525.mongolab.com:55525/reddit_people"
-db_name = "reddit_people"
 
 class WakeUpStorage():
     def __init__(self, name="?"):
+        cfg = ConfigManager()
+
+        mongo_uri = cfg.get("mongo_uri")
+        db_name = cfg.get("db_name")
         self.client = MongoClient(host=mongo_uri, maxPoolSize=10, connect=False)
         self.db = self.client[db_name]
         self.collection_names = self.db.collection_names(include_system_collections=False)

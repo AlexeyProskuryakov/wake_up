@@ -6,8 +6,8 @@ from multiprocessing import Process
 import requests
 import time
 
-from wsgi.wake_up import S_BAD, S_OK
-from wsgi.wake_up.storage import WakeUpStorage
+from wake_up import S_BAD, S_OK
+from wake_up.storage import WakeUpStorage
 
 log = logging.getLogger("wake_up_process")
 
@@ -54,3 +54,6 @@ class WakeUp(Process):
 
             time.sleep(3600)
 
+if __name__ == '__main__':
+    wu = WakeUp()
+    wu.start()
