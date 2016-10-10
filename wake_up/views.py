@@ -4,7 +4,7 @@ from flask import request, Blueprint, render_template
 from flask.json import jsonify
 
 
-from wsgi.wake_up.engine import WakeUp
+from wake_up.engine import WakeUp
 
 wu = WakeUp()
 wu.start()
