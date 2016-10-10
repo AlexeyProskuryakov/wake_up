@@ -28,7 +28,7 @@ def module_path():
 
 class ConfigManager(object):
     def __init__(self):
-        config_file = os.environ.get("config-file", None)
+        config_file = os.environ.get("config_file", None)
         if not config_file:
             config_file = "%s/config.json" % module_path()
         try:
