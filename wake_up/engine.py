@@ -6,10 +6,11 @@ from multiprocessing import Process
 import requests
 import time
 
-from wake_up import S_BAD, S_OK
+from wake_up import S_BAD, S_OK, STEP_TIME, WAIT_TO_RAISE
 from wake_up.storage import WakeUpStorage
 
 log = logging.getLogger("wake_up_process")
+
 
 class WakeUp(Process):
     def __init__(self):
@@ -38,7 +39,7 @@ class WakeUp(Process):
 
         urls_with_bad_state = self.store.get_urls_with_state(S_BAD)
         if urls_with_bad_state:
-            time.sleep(5)
+            time.sleep(WAIT_TO_RAISE)
             log.info("will check bad services")
             for url in urls_with_bad_state:
                 code = self.check_url(url)
@@ -46,13 +47,13 @@ class WakeUp(Process):
 
     def run(self):
         while 1:
-            time.sleep(10)
             try:
                 self.check()
             except Exception as e:
                 log.error(e)
 
-            time.sleep(3600)
+            time.sleep(STEP_TIME)
+
 
 if __name__ == '__main__':
     wu = WakeUp()
