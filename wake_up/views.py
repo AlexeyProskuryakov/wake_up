@@ -1,17 +1,23 @@
 import logging
+import socket
 
 from flask import request, Blueprint, render_template
 from flask.json import jsonify
-
+from wake_up import STEP_TIME
 
 from wake_up.engine import WakeUp
-
-wu = WakeUp()
-wu.start()
+from states.processes import ProcessDirector
 
 wake_up_app = Blueprint('wake_up_api', __name__, template_folder="templates")
 
 log = logging
+wu = WakeUp()
+pd = ProcessDirector()
+
+aspect = "wake_up_%s" % socket.gethostbyname(socket.gethostname())
+if not pd.is_aspect_work(aspect, timing_check=True):
+    wu.start()
+    pd.start_aspect(aspect, tick_time=STEP_TIME/2, with_tracking=False)
 
 
 @wake_up_app.route("/<salt>", methods=["POST"])
@@ -40,4 +46,5 @@ def wake_up_manage():
             wu.store.add_url(url)
 
     urls = wu.store.get_urls()
+
     return render_template("wake_up.html", **{"urls": urls})
