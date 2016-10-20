@@ -15,9 +15,9 @@ wu = WakeUp()
 pd = ProcessDirector()
 
 aspect = "wake_up_%s" % socket.gethostbyname(socket.gethostname())
-if not pd.is_aspect_work(aspect, timing_check=True):
+if not pd.is_aspect_work(aspect, timing_check=False):
     wu.start()
-    pd.start_aspect(aspect, tick_time=STEP_TIME/2, with_tracking=False)
+    pd.start_aspect(aspect, tick_time=STEP_TIME / 2, with_tracking=False)
 
 
 @wake_up_app.route("/<salt>", methods=["POST"])
