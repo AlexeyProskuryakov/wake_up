@@ -47,12 +47,13 @@ class WakeUp(Process):
 
     def run(self):
         while 1:
+            time.sleep(5)
             try:
                 self.check()
             except Exception as e:
                 log.error(e)
 
-            time.sleep(STEP_TIME)
+            time.sleep(STEP_TIME - 5)
 
 
 if __name__ == '__main__':
