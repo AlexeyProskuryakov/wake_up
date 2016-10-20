@@ -2,7 +2,7 @@ import logging
 
 from pymongo import MongoClient
 
-from wake_up import ConfigManager
+from rr_lib.cm import ConfigManager
 
 log = logging.getLogger("wake_up_storage")
 
