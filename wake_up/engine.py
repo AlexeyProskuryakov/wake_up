@@ -15,6 +15,7 @@ log = logging.getLogger("wake_up_process")
 class WakeUp(Process):
     def __init__(self):
         super(WakeUp, self).__init__()
+        self.daemon = True
         self.store = WakeUpStorage("wake_up")
 
     def check_url(self, url):
