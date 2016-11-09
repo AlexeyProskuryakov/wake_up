@@ -4,12 +4,14 @@ from pymongo import MongoClient
 
 from rr_lib.cm import ConfigManager
 
+from wake_up import cfg_group
+
 log = logging.getLogger("wake_up_storage")
 
 
 class WakeUpStorage():
     def __init__(self, name="?"):
-        cfg = ConfigManager(group="wake_up")
+        cfg = ConfigManager(group=cfg_group)
 
         mongo_uri = cfg.get("mongo_uri")
         db_name = cfg.get("db_name")
@@ -50,14 +52,5 @@ class WakeUpStorage():
 
     def get_urls_with_state(self, state):
         return map(lambda x: x.get("url"), self.urls.find({"state": state}, projection={'url': True}))
-
-if __name__ == '__main__':
-    ws = WakeUpStorage()
-    print ws.get_urls_info()
-
-    ws1 = WakeUpStorage()
-
-    cn = ConfigManager()
-    print cn == ConfigManager()
 
 
