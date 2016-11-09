@@ -9,7 +9,7 @@ log = logging.getLogger("wake_up_storage")
 
 class WakeUpStorage():
     def __init__(self, name="?"):
-        cfg = ConfigManager()
+        cfg = ConfigManager(group="wake_up")
 
         mongo_uri = cfg.get("mongo_uri")
         db_name = cfg.get("db_name")
@@ -50,3 +50,14 @@ class WakeUpStorage():
 
     def get_urls_with_state(self, state):
         return map(lambda x: x.get("url"), self.urls.find({"state": state}, projection={'url': True}))
+
+if __name__ == '__main__':
+    ws = WakeUpStorage()
+    print ws.get_urls_info()
+
+    ws1 = WakeUpStorage()
+
+    cn = ConfigManager()
+    print cn == ConfigManager()
+
+
