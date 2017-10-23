@@ -12,7 +12,7 @@ wake_up_app = Blueprint('wake_up_api', __name__, template_folder="templates")
 
 log = logging
 wu = WakeUp()
-pd = ProcessDirector()
+pd = ProcessDirector('wake_up')
 
 aspect = "wake_up_%s" % socket.gethostbyname(socket.gethostname())
 if not pd.is_aspect_work(aspect, timing_check=False):
